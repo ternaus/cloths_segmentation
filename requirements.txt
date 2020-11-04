@@ -5,3 +5,4 @@ pytorch_toolbelt
 segmentation-models-pytorch
 torch
 tqdm
+wandb

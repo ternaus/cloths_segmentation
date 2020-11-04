@@ -1,0 +1,124 @@
+---
+seed: 1984
+
+num_workers: 4
+experiment_name: "2020-10-29a"
+
+val_split: 0.1
+
+resume_from_checkpoint: 2020-10-29/epoch=4.ckpt
+
+model:
+  type: segmentation_models_pytorch.Unet
+  encoder_name: timm-efficientnet-b3
+  classes: 1
+  encoder_weights: noisy-student
+
+trainer:
+  type: pytorch_lightning.Trainer
+  gpus: 4
+  max_epochs: 30
+  distributed_backend: ddp
+  progress_bar_refresh_rate: 1
+  benchmark: True
+  precision: 16
+  gradient_clip_val: 5.0
+  num_sanity_val_steps: 2
+  sync_batchnorm: True
+
+
+scheduler:
+  type: torch.optim.lr_scheduler.CosineAnnealingWarmRestarts
+  T_0: 10
+  T_mult: 2
+
+train_parameters:
+  batch_size: 8
+
+checkpoint_callback:
+  type: pytorch_lightning.callbacks.ModelCheckpoint
+  filepath: "2020-10-29a"
+  monitor: val_iou
+  verbose: True
+  mode: max
+  save_top_k: -1
+
+val_parameters:
+  batch_size: 2
+
+optimizer:
+  type: adamp.AdamP
+  lr: 0.0001
+
+
+train_aug:
+  transform:
+    __class_fullname__: albumentations.core.composition.Compose
+    bbox_params: null
+    keypoint_params: null
+    p: 1
+    transforms:
+      - __class_fullname__: albumentations.augmentations.transforms.LongestMaxSize
+        always_apply: False
+        max_size: 800
+        p: 1
+      - __class_fullname__: albumentations.augmentations.transforms.PadIfNeeded
+        always_apply: False
+        min_height: 800
+        min_width: 800
+        border_mode: 0 # cv2.BORDER_CONSTANT
+        value: 0
+        mask_value: 0
+        p: 1
+      - __class_fullname__: albumentations.augmentations.transforms.RandomCrop
+        always_apply: False
+        height: 512
+        width: 512
+        p: 1
+      - __class_fullname__: albumentations.augmentations.transforms.HorizontalFlip
+        always_apply: False
+        p: 0.5
+      - __class_fullname__: albumentations.augmentations.transforms.Normalize
+        always_apply: false
+        max_pixel_value: 255.0
+        mean:
+          - 0.485
+          - 0.456
+          - 0.406
+        p: 1
+        std:
+          - 0.229
+          - 0.224
+          - 0.225
+
+val_aug:
+  transform:
+    __class_fullname__: albumentations.core.composition.Compose
+    bbox_params: null
+    keypoint_params: null
+    p: 1
+    transforms:
+      - __class_fullname__: albumentations.augmentations.transforms.LongestMaxSize
+        always_apply: False
+        max_size: 800
+        p: 1
+      - __class_fullname__: albumentations.augmentations.transforms.PadIfNeeded
+        always_apply: False
+        min_height: 800
+        min_width: 800
+        border_mode: 0 # cv2.BORDER_CONSTANT
+        value: 0
+        mask_value: 0
+        p: 1
+      - __class_fullname__: albumentations.augmentations.transforms.Normalize
+        always_apply: false
+        max_pixel_value: 255.0
+        mean:
+          - 0.485
+          - 0.456
+          - 0.406
+        p: 1
+        std:
+          - 0.229
+          - 0.224
+          - 0.225
