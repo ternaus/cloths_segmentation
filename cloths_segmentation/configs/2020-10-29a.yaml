@@ -2,9 +2,11 @@
 seed: 1984
 
 num_workers: 4
-experiment_name: "2020-10-29"
+experiment_name: "2020-10-29a"
 
-val_split: 0.2
+val_split: 0.1
+
+resume_from_checkpoint: 2020-10-29/epoch=4.ckpt
 
 model:
   type: segmentation_models_pytorch.Unet
@@ -35,7 +37,7 @@ train_parameters:
 
 checkpoint_callback:
   type: pytorch_lightning.callbacks.ModelCheckpoint
-  filepath: "2020-10-29"
+  filepath: "2020-10-29a"
   monitor: val_iou
   verbose: True
   mode: max

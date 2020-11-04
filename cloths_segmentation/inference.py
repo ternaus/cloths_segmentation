@@ -74,7 +74,7 @@ def main():
         }
     )
 
-    output_mask_path = args.output_path / "masks"
+    output_mask_path = args.output_path
     output_mask_path.mkdir(parents=True, exist_ok=True)
     hparams["output_mask_path"] = output_mask_path
 
@@ -142,6 +142,7 @@ def predict(dataloader, model, hparams, device):
 
             for batch_id in range(batch_size):
                 file_id = Path(image_paths[batch_id]).stem
+                folder_name = Path(image_paths[batch_id]).parent.name
 
                 mask = (predictions[batch_id][0].cpu().numpy() > 0).astype(np.uint8) * 255
                 mask = unpad_from_size(pads, image=mask)["image"]
@@ -149,7 +150,8 @@ def predict(dataloader, model, hparams, device):
                     mask, (widths[batch_id].item(), heights[batch_id].item()), interpolation=cv2.INTER_NEAREST
                 )
 
-                cv2.imwrite(str(hparams["output_mask_path"] / f"{file_id}.png"), mask)
+                (hparams["output_mask_path"] / folder_name).mkdir(exist_ok=True, parents=True)
+                cv2.imwrite(str(hparams["output_mask_path"] / folder_name / f"{file_id}.png"), mask)
 
 
 if __name__ == "__main__":

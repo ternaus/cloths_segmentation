@@ -2,9 +2,9 @@
 seed: 1984
 
 num_workers: 4
-experiment_name: "2020-10-29"
+experiment_name: "2020-10-30"
 
-val_split: 0.2
+val_split: 0.1
 
 model:
   type: segmentation_models_pytorch.Unet
@@ -15,7 +15,7 @@ model:
 trainer:
   type: pytorch_lightning.Trainer
   gpus: 4
-  max_epochs: 30
+  max_epochs: 70
   distributed_backend: ddp
   progress_bar_refresh_rate: 1
   benchmark: True
@@ -23,6 +23,7 @@ trainer:
   gradient_clip_val: 5.0
   num_sanity_val_steps: 2
   sync_batchnorm: True
+#  resume_from_checkpoint: 2020-10-30/epoch=67.ckpt
 
 
 scheduler:
@@ -35,7 +36,7 @@ train_parameters:
 
 checkpoint_callback:
   type: pytorch_lightning.callbacks.ModelCheckpoint
-  filepath: "2020-10-29"
+  filepath: "2020-10-30"
   monitor: val_iou
   verbose: True
   mode: max
