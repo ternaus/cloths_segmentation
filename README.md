@@ -1,6 +1,14 @@
 # cloths_segmentation
 Code for binary segmentation of cloths
 
+## Installation
+
+`pip install -U cloths_segmentation`
+
+### Example inference
+
+Jupyter notebook with the example: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/18RenTYhuPVip9SHdMLn-vnK0K57B--um#scrollTo=D0h2Y-oOCnXJ)
+
 ## Data Preparation
 
 Download the dataset from [https://www.kaggle.com/c/imaterialist-fashion-2019-FGVC6](https://www.kaggle.com/c/imaterialist-fashion-2019-FGVC6)
