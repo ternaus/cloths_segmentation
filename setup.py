@@ -1,4 +1,3 @@
-import io
 import os
 import re
 import sys
@@ -65,6 +64,10 @@ class UploadCommand(Command):
 
     def finalize_options(self):
         pass
+
+    @property
+    def user_options(self):
+        return []
 
     def run(self):
         try:

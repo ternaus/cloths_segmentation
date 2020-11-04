@@ -1,6 +1,5 @@
 from pathlib import Path
-from typing import List, Dict, Any
-from typing import Tuple
+from typing import List, Dict, Any, Tuple
 
 import albumentations as albu
 import numpy as np
