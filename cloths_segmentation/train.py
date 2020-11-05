@@ -10,12 +10,13 @@ from albumentations.core.serialization import from_dict
 from iglovikov_helper_functions.config_parsing.utils import object_from_dict
 from iglovikov_helper_functions.dl.pytorch.lightning import find_average
 from iglovikov_helper_functions.dl.pytorch.utils import state_dict_from_disk
-from people_segmentation.dataloaders import SegmentationDataset
-from people_segmentation.metrics import binary_mean_iou
-from people_segmentation.utils import get_samples
 from pytorch_lightning.loggers import WandbLogger
 from pytorch_toolbelt.losses import JaccardLoss, BinaryFocalLoss
 from torch.utils.data import DataLoader
+
+from cloths_segmentation.dataloaders import SegmentationDataset
+from cloths_segmentation.metrics import binary_mean_iou
+from cloths_segmentation.utils import get_samples
 
 image_path = Path(os.environ["IMAGE_PATH"])
 mask_path = Path(os.environ["MASK_PATH"])
