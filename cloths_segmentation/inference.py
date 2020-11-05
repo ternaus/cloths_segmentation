@@ -99,6 +99,9 @@ def main():
     for regexp in ["*.jpg", "*.png", "*.jpeg", "*.JPG"]:
         file_paths += sorted([x for x in tqdm(args.input_path.rglob(regexp))])
 
+    # Filter file paths for which we already have predictions
+    file_paths = [x for x in file_paths if not (args.output_path / x.parent.name / f"{x.stem}.png").exists()]
+
     dataset = InferenceDataset(file_paths, transform=from_dict(hparams["test_aug"]))
 
     sampler = DistributedSampler(dataset, shuffle=False)

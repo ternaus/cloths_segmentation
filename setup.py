@@ -2,6 +2,7 @@ import os
 import re
 import sys
 from shutil import rmtree
+from typing import List
 
 from setuptools import Command, find_packages, setup
 
@@ -53,6 +54,7 @@ class UploadCommand(Command):
     """Support setup.py upload."""
 
     description = "Build and publish the package."
+    user_options: List = []
 
     @staticmethod
     def status(s):
@@ -64,10 +66,6 @@ class UploadCommand(Command):
 
     def finalize_options(self):
         pass
-
-    @property
-    def user_options(self):
-        return []
 
     def run(self):
         try:
