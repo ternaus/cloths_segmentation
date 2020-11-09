@@ -1,5 +1,6 @@
-# cloths_segmentation
-Code for binary segmentation of cloths
+![](https://habrastorage.org/webt/gu/wi/lq/guwilqwsfru7hc5rkxhxsj_nl_u.jpeg)
+
+# Code for binary segmentation of various cloths
 
 ## Installation
 
@@ -9,11 +10,15 @@ Code for binary segmentation of cloths
 
 Jupyter notebook with the example: [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/18RenTYhuPVip9SHdMLn-vnK0K57B--um#scrollTo=D0h2Y-oOCnXJ)
 
+### WebApp
+
+[https://clothssegmentation.herokuapp.com/](https://clothssegmentation.herokuapp.com/)
+
 ## Data Preparation
 
 Download the dataset from [https://www.kaggle.com/c/imaterialist-fashion-2019-FGVC6](https://www.kaggle.com/c/imaterialist-fashion-2019-FGVC6)
 
-Process the data using script [https://github.com/ternaus/iglovikov_helper_functions/tree/master/iglovikov_helper_functions/data_processing/prepare_cloths_segmentation](https://github.com/ternaus/iglovikov_helper_functions/tree/master/iglovikov_helper_functions/data_processing/prepare_cloths_segmentation)
+Process the data using [script](https://github.com/ternaus/iglovikov_helper_functions/tree/master/iglovikov_helper_functions/data_processing/prepare_cloths_segmentation)
 
 The script will create process the data and store images to folder `images` and binary masks to folder `labels`.
 
